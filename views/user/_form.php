@@ -7,46 +7,20 @@ use yii\widgets\ActiveForm;
 /* @var $model app\models\gruz\User */
 /* @var $form yii\widgets\ActiveForm */
 
-\yii\web\JqueryAsset::register($this);
-$this -> registerJsFile('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyBCFlZ18I2OODtJtSe8a3e6PjaKwB8Q4vg');
+\app\assets\GoogleAsset::register($this);
+\app\assets\FormValidateAsset::register($this);
 $this -> registerJs('
-var $phoneInput = $("#phoneInput"),
-$dateInput = $("#dateInput"),
-dateReg = /^\d{2}\.\d{2}.\d{4}$/,
-phoneReg = /^\+7 \(\d{3}\) \d{3}-\d{4}$/;
-$("#userForm").submit(function(e){
-    var isOk = true;
-    if (!dateReg.exec($dateInput.val())) {
-        alert("Поле \"Дата рождения\" заполнено неверно. Убедитесь, что формат соответствует dd.mm.Y");
-        isOk = false;
-    }
-    if (!phoneReg.exec($phoneInput.val())) {
-        alert("Поле \"Телефон\" заполнено неверно. Убедитесь, что формат соответствует +7 (777) 777-7777");
-        isOk = false;
-    }
-    //prevent yii from validating other fields and calling submit for the second time
-    if (!isOk) {
-        e.preventDefault();
-        e.stopImmediatePropagation();
-    }
-    return isOk;
-});
+//did not move to an asset since I want to preserve Url::toRoute versus hardcoding the address into JS
 var $adressesContainer = $("#addressForms");
 $("#addAddressForm").click(function(){
     $.get("'.\yii\helpers\Url::toRoute('address/form').'").done(function(data){
         var $data = $(data);
         $adressesContainer.append($data);
-        var autocomplete = new google.maps.places.Autocomplete($data.find(".addressInput").get(0), {
-            language: "ru",
-            componentRestrictions: {country: "ru"}
-        });
+        createGooglePrompt($data.find(".addressInput").get(0));
     });
 });
 $(".addressInput").each(function(){
-    var autocomplete = new google.maps.places.Autocomplete(this, {
-        language: "ru",
-        componentRestrictions: {country: "ru"}
-    });
+    createGooglePrompt(this);
 });
 ');
 ?>
