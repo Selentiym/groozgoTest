@@ -28,3 +28,6 @@ phpunit.phar
 
 tests/_output/*
 tests/_support/_generated
+
+# ignore files with local configurations. Mark those files by .pss.php extension
+*.pss.php
