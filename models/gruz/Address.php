@@ -2,6 +2,7 @@
 
 namespace app\models\gruz;
 
+use app\components\BaseModel;
 use Yii;
 
 /**
@@ -14,7 +15,7 @@ use Yii;
  *
  * @property User $user
  */
-class Address extends \app\components\BaseModel
+class Address extends BaseModel
 {
     /**
      * @inheritdoc

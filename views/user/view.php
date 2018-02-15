@@ -39,5 +39,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'phone',
         ],
     ]) ?>
-
+    <?= \yii\grid\GridView::widget([
+        'dataProvider' => new \yii\data\ActiveDataProvider([
+            'query' => $model -> getAddresses(),
+        ]),
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            'name',
+            'address',
+        ],
+    ]); ?>
 </div>

@@ -30,6 +30,12 @@ $("#userForm").submit(function(e){
     }
     return isOk;
 });
+var $adressesContainer = $("#addressForms");
+$("#addAddressForm").click(function(){
+    $.get("'.\yii\helpers\Url::toRoute('address/form').'").done(function(data){
+        $adressesContainer.append(data);
+    });
+});
 ');
 ?>
 
@@ -50,10 +56,16 @@ $("#userForm").submit(function(e){
 
     <?= $form->field($model, 'phone')->textInput(['maxlength' => true, 'id' => 'phoneInput']) ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+    <div id="addressForms">
+        <?php foreach ($model -> addresses as $address) {
+            echo $this -> render('/address/_form',['model' => $address]);
+        } ?>
     </div>
 
+    <div class="form-group">
+        <?= Html::button('Добавить адрес', ['class' => 'btn btn-info', 'id' => 'addAddressForm']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
+    </div>
     <?php ActiveForm::end(); ?>
 
 </div>

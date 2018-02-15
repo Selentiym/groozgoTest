@@ -65,8 +65,9 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $post = Yii::$app->request->post();
+        if ($model->load($post) && $model->save()) {
+            $model -> storeAddressRelations($post['Address']);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -85,8 +86,9 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $post = Yii::$app->request->post();
+        if ($model->load($post) && $model->save()) {
+            $model -> storeAddressRelations($post['Address']);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
