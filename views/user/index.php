@@ -26,7 +26,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'surname',
             'born',
-            'gender',
+            'gender' => [
+                'label' => 'Пол',
+                'value' => function($model) { return $model -> gender ? 'М' : 'Ж';}
+            ],
             'phone',
 
             ['class' => 'yii\grid\ActionColumn'],

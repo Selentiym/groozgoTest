@@ -13,7 +13,7 @@ var $phoneInput = $("#phoneInput"),
 $dateInput = $("#dateInput"),
 dateReg = /^\d{2}\.\d{2}.\d{4}$/,
 phoneReg = /^\+7 \(\d{3}\) \d{3}-\d{4}$/;
-$("#userForm").submit(function(){
+$("#userForm").submit(function(e){
     var isOk = true;
     if (!dateReg.exec($dateInput.val())) {
         alert("Поле \"Дата рождения\" заполнено неверно. Убедитесь, что формат соответствует dd.mm.Y");
@@ -23,7 +23,12 @@ $("#userForm").submit(function(){
         alert("Поле \"Телефон\" заполнено неверно. Убедитесь, что формат соответствует +7 (777) 777-7777");
         isOk = false;
     }
-    return false;
+    //prevent yii from validating other fields and calling submit for the second time
+    if (!isOk) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+    }
+    return isOk;
 });
 ');
 ?>
@@ -36,9 +41,12 @@ $("#userForm").submit(function(){
 
     <?= $form->field($model, 'surname')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'born')->textInput(['id' => 'dateInput']) ?>
+    <?= $form->field($model, 'bornUpdate')->textInput(['id' => 'dateInput']) ?>
 
-    <?= $form->field($model, 'gender')->textInput() ?>
+    <?= $form->field($model, 'gender')->radioList([
+        1 => 'М',
+        0 => 'Ж'
+    ]) ?>
 
     <?= $form->field($model, 'phone')->textInput(['maxlength' => true, 'id' => 'phoneInput']) ?>
 
