@@ -47,11 +47,11 @@ class User extends \app\components\BaseModel
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'surname' => 'Surname',
-            'born' => 'Born',
-            'gender' => 'Gender',
-            'phone' => 'Phone',
+            'name' => 'Имя',
+            'surname' => 'Фамилия',
+            'born' => 'Дата рождения',
+            'gender' => 'Пол',
+            'phone' => 'Номер телефона',
         ];
     }
 
@@ -61,5 +61,9 @@ class User extends \app\components\BaseModel
     public function getAddresses()
     {
         return $this->hasMany(Address::className(), ['id_user' => 'id']);
+    }
+
+    public function getFullName() {
+        return $this -> name.' '.$this -> surname;
     }
 }
