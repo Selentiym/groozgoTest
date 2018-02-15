@@ -20,6 +20,30 @@ class m180215_132957_create_user_table extends Migration
             'gender' => $this->boolean(),
             'phone' => $this->string(17),
         ]);
+        $data = [
+            [
+                'name' => 'Иван',
+                'surname' => 'Иванов',
+                'born' => '1990-01-01',
+                'gender' => 1,
+                'phone' => 79999999999,
+            ],[
+                'name' => 'Петр',
+                'surname' => 'Петров',
+                'born' => '1980-11-11',
+                'gender' => 1,
+                'phone' => 79999999998,
+            ],[
+                'name' => 'Иванна',
+                'surname' => 'Иванова',
+                'born' => '1999-11-11',
+                'gender' => 0,
+                'phone' => 79999999997,
+            ]
+        ];
+        foreach ($data as $arr) {
+            $this -> insert('user', $arr);
+        }
     }
 
     /**

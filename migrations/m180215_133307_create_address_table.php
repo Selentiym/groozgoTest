@@ -38,6 +38,29 @@ class m180215_133307_create_address_table extends Migration
             'id',
             'CASCADE'
         );
+
+        $data = [
+            [
+                'id_user' => 1,
+                'name' => 'Дом',
+                'address' => 'Москва,  спальный район'
+            ],[
+                'id_user' => 1,
+                'name' => 'Работа',
+                'address' => 'Москва, центр'
+            ],[
+                'id_user' => 2,
+                'name' => 'Дом',
+                'address' => 'Химки'
+            ],[
+                'id_user' => 3,
+                'name' => 'Дом',
+                'address' => 'Московская область, Иваново',
+            ]
+        ];
+        foreach ($data as $arr) {
+            $this -> insert('address', $arr);
+        }
     }
 
     /**
