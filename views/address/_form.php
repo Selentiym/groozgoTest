@@ -30,7 +30,7 @@ $this -> registerJs('
         <?php echo Html::activeTextInput($model,'name',['name' => 'Address[name][]','class' => 'form-control']);?>
         </label>
         <label class="control-label">Адрес
-        <?php echo Html::activeTextInput($model,'address',['name' => 'Address[address][]','class' => 'addressInput form-control']);?>
+        <?php echo Html::activeTextInput($model,'address',['name' => 'Address[address][]','class' => 'addressInput form-control','style' => 'width:500px;']);?>
         </label>
         <?= Html::a('Удалить', ['address/delete', 'id' => $model->id], [
             'class' => 'btn btn-danger delete',

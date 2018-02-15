@@ -8,6 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 
 \yii\web\JqueryAsset::register($this);
+$this -> registerJsFile('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyBCFlZ18I2OODtJtSe8a3e6PjaKwB8Q4vg');
 $this -> registerJs('
 var $phoneInput = $("#phoneInput"),
 $dateInput = $("#dateInput"),
@@ -33,7 +34,18 @@ $("#userForm").submit(function(e){
 var $adressesContainer = $("#addressForms");
 $("#addAddressForm").click(function(){
     $.get("'.\yii\helpers\Url::toRoute('address/form').'").done(function(data){
-        $adressesContainer.append(data);
+        var $data = $(data);
+        $adressesContainer.append($data);
+        var autocomplete = new google.maps.places.Autocomplete($data.find(".addressInput").get(0), {
+            language: "ru",
+            componentRestrictions: {country: "ru"}
+        });
+    });
+});
+$(".addressInput").each(function(){
+    var autocomplete = new google.maps.places.Autocomplete(this, {
+        language: "ru",
+        componentRestrictions: {country: "ru"}
     });
 });
 ');
